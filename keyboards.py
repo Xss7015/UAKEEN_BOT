@@ -4,17 +4,12 @@ from config import is_admin, WEBAPP_URL
 WEBAPP_URL_FIXED = f"{WEBAPP_URL}?startapp=uakeen"
 
 def get_main_menu(user_id: int = None):
-    buttons = []
-    if WEBAPP_URL.startswith("https://"):
-        buttons.append(InlineKeyboardButton(text="🛍️ Mahsulotlar", web_app=WebAppInfo(url=WEBAPP_URL_FIXED)))
-    else:
-        buttons.append(InlineKeyboardButton(text="🛍️ Mahsulotlar", callback_data="show_categories"))
+    keyboard = [
+        [KeyboardButton(text="🛍️ Mahsulotlar")],
+    ]
     if user_id and is_admin(user_id):
-        buttons.append(InlineKeyboardButton(text="👑 Admin panel", callback_data="admin_panel"))
-    keyboard = []
-    for i in range(0, len(buttons), 2):
-        keyboard.append(buttons[i:i+2])
-    return InlineKeyboardMarkup(inline_keyboard=keyboard)
+        keyboard.append([KeyboardButton(text="👑 Admin panel")])
+    return ReplyKeyboardMarkup(keyboard=keyboard, resize_keyboard=True)
 
 def get_admin_menu():
     buttons = [
