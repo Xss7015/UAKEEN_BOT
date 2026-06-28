@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>UAKEEN Mahsulotlar</title>
+<meta name="theme-color" content="#0a0a0f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="/">
+<link rel="preconnect" href="/api">
+<link rel="stylesheet" href="style.css">
+<script>(function(){if(window.location.hostname.includes('ngrok')&&!window.location.search.includes('ngrok-skip-browser-warning')){let u=window.location.href;u+=(u.includes('?')?'&':'?')+'ngrok-skip-browser-warning=true';window.location.replace(u);return}if(window.Telegram?.WebApp){window.Telegram.WebApp.expand();window.Telegram.WebApp.ready()}})();</script>
+</head>
+<body>
+<div id="app">
+<header><button class="back-btn" onclick="goBack()">←</button><h1 id="category-title">Mahsulotlar</h1><span id="total-count">0 ta</span></header>
+<div class="search-container"><input type="text" id="search-input" placeholder="🔍 Mahsulotlarni qidirish..." oninput="filterProducts()" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+<div id="products-grid"></div>
+<div id="pagination"><button id="prev-page" onclick="changePage(-1)">◀️</button><span id="page-info">1 / 1</span><button id="next-page" onclick="changePage(1)">▶️</button></div>
+</div>
+<script src="script.js" defer></script>
+</body>
+</html>

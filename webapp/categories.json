@@ -1,0 +1,129 @@
+{
+  "categories": [
+    {
+      "name": "PILESOS VA OCHISTITELLAR",
+      "icon": "/images/categories/pilesos.jpg",
+      "description": "Changyutgichlar va tozalash vositalari"
+    },
+    {
+      "name": "DAZMOL",
+      "icon": "/images/categories/ZL-813C.jpg",
+      "description": "Yuqori sifatli dazmollar"
+    },
+    {
+      "name": "Konditsioner",
+      "icon": "/images/categories/konder.png",
+      "description": "Konditsionerlar"
+    },
+    {
+      "name": "Vozdux Ochistitel",
+      "icon": "/images/categories/ochistitel.jpg",
+      "description": "Uvlajnitel"
+    },
+    {
+      "name": "Isitgich",
+      "icon": "/images/categories/Isitgich.jpg",
+      "description": "Isitgich"
+    },
+    {
+      "name": "FEN VA TAROZZI",
+      "icon": "/images/categories/fen.png",
+      "description": "Fenlar va tarozi asboblari"
+    },
+    {
+      "name": "MIKROVOLNOVKA",
+      "icon": "/images/categories/mikrovolnovka.png",
+      "description": "Mikroto'lqinli pechlar"
+    },
+    {
+      "name": "RAZDELOCHNAYA DOSKA",
+      "icon": "/images/categories/doska.png",
+      "description": "Kesish taxtalari"
+    },
+    {
+      "name": "AEROGRILL",
+      "icon": "/images/categories/aerogrill.png",
+      "description": "Aerogrill va frituznitsalar"
+    },
+    {
+      "name": "STEKLO",
+      "icon": "/images/categories/steklo.png",
+      "description": "Shisha idishlar va buyumlar"
+    },
+    {
+      "name": "BAKAL/KRUJKA",
+      "icon": "/images/categories/krujka.png",
+      "description": "Bakallar va krujkalar"
+    },
+    {
+      "name": "BLENDER",
+      "icon": "/images/categories/Blender.jpg",
+      "description": "Blender va mikserlar"
+    },
+    {
+      "name": "SOKOVIJIMALKA",
+      "icon": "/images/categories/Sokovijimalka.jpg",
+      "description": "Sokovijimalka"
+    },
+    {
+      "name": "CHOPPER",
+      "icon": "/images/categories/Chopper.jpg",
+      "description": "Chopper"
+    },
+    {
+      "name": "MYASORUBKA",
+      "icon": "/images/categories/Myasorubka.jpg",
+      "description": "Myasorubka"
+    },
+    {
+      "name": "VESHALKA",
+      "icon": "/images/categories/veshalka.png",
+      "description": "Ilgichlar va osma buyumlar"
+    },
+    {
+      "name": "ZAMZAM",
+      "icon": "/images/categories/zamzam.png",
+      "description": "Zamzam suvi va idishlar"
+    },
+    {
+      "name": "KAZON",
+      "icon": "/images/categories/kastrulya.png",
+      "description": "Kazon va qozonlar"
+    },
+    {
+      "name": "KANFETNITSA",
+      "icon": "/images/categories/kanfetnitsa.png",
+      "description": "Konfet va shirinlik idishlari"
+    },
+    {
+      "name": "KASKON",
+      "icon": "/images/categories/kaskon.png",
+      "description": "Kaskon va oshxona anjomlari"
+    },
+    {
+      "name": "KASTRULYA NIKEL",
+      "icon": "/images/categories/kastrulya-nikel.png",
+      "description": "Nikel qoplamali kostryulkalar"
+    },
+    {
+      "name": "KASTRULYA EMAL",
+      "icon": "/images/categories/emal.png",
+      "description": "Emal qoplamali kostryulkalar"
+    },
+    {
+      "name": "KASTRULYA/BLINNITSA/SOTEYNIK",
+      "icon": "/images/categories/sateynik.png",
+      "description": "Kostryulkalar, blinnitsalar, soteyniklar"
+    },
+    {
+      "name": "KERAMIK CHAYNIK",
+      "icon": "/images/categories/choynak.png",
+      "description": "Keramik choynaklar"
+    },
+    {
+      "name": "KOSHIK VILKA NABOR",
+      "icon": "/images/categories/nabor_vilka.png",
+      "description": "Qoshiq va vilkalar to'plami"
+    }
+  ]
+}

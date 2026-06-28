@@ -1,0 +1,13 @@
+{
+  "news": [
+    {
+      "id": 1,
+      "type": "photo",
+      "title": "Kastrulya",
+      "date": "2026-06-26",
+      "description": "Zl 090",
+      "image": "/webapp/images/news/news_20260626_143609.jpg",
+      "video": ""
+    }
+  ]
+}

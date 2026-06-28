@@ -1,0 +1,95 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "name": "Muminov Sirojiddin",
+      "position": "Xojayin",
+      "shop_phone": "83-109",
+      "personal_phone": "+998 98 364 60 66",
+      "photo": "/webapp/images/employees/Mominov_Sirojiddin.jpg",
+      "username": "siroj_080"
+    },
+    {
+      "id": 2,
+      "name": "Samadov Muhammadali",
+      "position": "Sotuvchi",
+      "shop_phone": "83-109",
+      "personal_phone": "+998 91 666 47 77",
+      "photo": "/webapp/images/employees/muhammadali.png",
+      "username": "sma717"
+    },
+    {
+      "id": 3,
+      "name": "Baxtiyorov Abduazim",
+      "position": "Sotuvchi",
+      "shop_phone": "83-109",
+      "personal_phone": "+998 97 446 23 45",
+      "photo": "/webapp/images/employees/Abduazim.jpg",
+      "username": "sba050111"
+
+    },
+    {
+      "id": 4,
+      "name": "Samadov Shaxzod",
+      "position": "Sotuvchi",
+      "shop_phone": "135-163",
+      "personal_phone": "+998 90 014 00 80",
+      "photo": "/webapp/images/employees/Shaxzod.jpg",
+      "username": "Samadov_470"
+    },
+    {
+      "id": 5,
+      "name": "Samadov SubxonAli",
+      "position": "Sotuvchi",
+      "shop_phone": "135-163",
+      "personal_phone": "+998 98 888 07 17",
+      "photo": "/webapp/images/employees/Subxonali.png",
+      "username": "siroj_080"
+    },
+    {
+      "id": 6,
+      "name": "Samadov Doniyor",
+      "position": "Sotuvchi",
+      "shop_phone": "203-233",
+      "personal_phone": "+998 90 320 54 57",
+      "photo": "/webapp/images/employees/Samadov_doniyor.jpg",
+      "username": "Samadov_Doniyor"
+    },
+    {
+      "id": 7,
+      "name": "Yangiyev Ashur",
+      "position": "Sotuvchi",
+      "shop_phone": "203-233",
+      "personal_phone": "+998 94 549 67 97",
+      "photo": "/webapp/images/employees/Ashur.jpg",
+      "username": "Samadov_Doniyor"
+    },
+    {
+      "id": 8,
+      "name": "Samadov Boxodir",
+      "position": "Sotuvchi",
+      "shop_phone": "39-40",
+      "personal_phone": "+998 91 005 77 87",
+      "photo":"/webapp/images/employees/Boxodir.jpg",
+      "username": "Samadov_717"
+    },
+    {
+      "id": 9,
+      "name": "Norxojayev Doniyor",
+      "position": "Sotuvchi",
+      "shop_phone": "39-40",
+      "personal_phone": "+998 95 013 37 73",
+      "photo":"/webapp/images/employees/Norxojayev_Doniyor.jpg",
+      "username": "Doniyor_3773"
+    },
+    {
+      "id": 10,
+      "name": "Norqulov Otaxon",
+      "position": "Sotuvchi",
+      "shop_phone": "39-40",
+      "personal_phone": "+998 99 299 50 57",
+      "photo":"/webapp/images/employees/Otaxon.jpg",
+      "username": ""
+    }
+  ]
+}
