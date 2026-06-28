@@ -114,13 +114,13 @@ class WebServer:
             return web.json_response({"error": str(e)}, status=500)
 
     async def start(self):
+        import os
         self.runner = web.AppRunner(self.app)
         await self.runner.setup()
-        site = web.TCPSite(self.runner, host='0.0.0.0', port=8080)
+        port = int(os.environ.get("PORT", 8080))
+        site = web.TCPSite(self.runner, host='0.0.0.0', port=port)
         await site.start()
-        print(f"✅ Веб-сервер запущен на http://localhost:8080")
-        print(f"📁 Папка webapp: {WEBAPP_DIR}")
-        print(f"📸 Папка images: {IMAGES_DIR}")
+        print(f"✅ Веб-сервер запущен на порту {port}")
 
     async def stop(self):
         if self.runner:

@@ -16,8 +16,9 @@ DB_PATH = BASE_DIR / "data" / "products.db"
 WEBAPP_DIR = BASE_DIR / "webapp"
 
 WEB_HOST = os.getenv("WEB_HOST", "0.0.0.0")
-WEB_PORT = int(os.getenv("WEB_PORT", 8080))
+WEB_PORT = int(os.getenv("WEB_PORT", os.environ.get("PORT", 8080)))
 WEBAPP_URL = os.getenv("WEBAPP_URL", f"http://localhost:{WEB_PORT}")
+
 IP_API_URL = os.getenv("IP_API_URL", "http://ip-api.com/json/")
 
 if not BOT_TOKEN:
