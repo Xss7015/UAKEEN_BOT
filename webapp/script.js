@@ -259,7 +259,7 @@ function openCategory(e) {
 }
 
 // ============================================================
-// 🛍️ ТОВАРЫ С ОПТИМИЗАЦИЕЙ (ИСПРАВЛЕНО!)
+// 🛍️ ТОВАРЫ — ПРАВИЛЬНЫЕ ПУТИ К ФОТО (С ПАПКАМИ!)
 // ============================================================
 
 function renderProducts() {
@@ -278,14 +278,14 @@ function renderProducts() {
     c.innerHTML = items.map(p => {
         let imgPath = '';
         if (p.image_path) {
-            // Пробуем разные варианты путей
-            const possiblePaths = [
-                `/images/${p.image_path}`, // Корень images/
-                `/images/${p.category?.toLowerCase()}/${p.image_path}`, // В папке категории
-                `/images/${p.image_path.replace(/^.*[\\\/]/, '')}` // Только имя файла
-            ];
-            // Берём первый вариант (корень)
-            imgPath = possiblePaths[0];
+            // ✅ ПРАВИЛЬНЫЙ ПУТЬ: /images/категория/файл.jpg
+            const categoryFolder = p.category ? p.category.toLowerCase() : '';
+            // Если в image_path уже есть папка — не добавляем
+            if (p.image_path.includes('/')) {
+                imgPath = `/images/${p.image_path}`;
+            } else {
+                imgPath = `/images/${categoryFolder}/${p.image_path}`;
+            }
         }
         return `<div class="product-item" onclick="showDetail(${p.id})"><div class="product-image-wrapper">${imgPath ? `<img src="${imgPath}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'no-image\\'>📦</div>'" onclick="event.stopPropagation();openImageModal('${imgPath}')"><div class="zoom-hint">🔍</div>` : '<div class="no-image">📦</div>'}</div><div class="product-info"><div class="product-name">${esc(p.name)}</div><div class="product-brand">${esc(p.brand || 'UAKEEN')}</div>${p.price ? `<div class="product-price">${esc(p.price)}</div>` : ''}</div></div>`;
     }).join('');
@@ -299,10 +299,6 @@ function showDetail(id) {
     if (tg) tg.showPopup({ title: '📌 Tovar', message: t, buttons: [{ type: 'close' }] });
     else alert(t);
 }
-
-// ============================================================
-// УВЕЛИЧЕНИЕ ФОТО
-// ============================================================
 
 function openImageModal(url) {
     if (!url) return;
