@@ -9,12 +9,25 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="/">
 <link rel="stylesheet" href="style.css">
-<script>(function(){if(window.location.hostname.includes('ngrok')&&!window.location.search.includes('ngrok-skip-browser-warning')){let u=window.location.href;u+=(u.includes('?')?'&':'?')+'ngrok-skip-browser-warning=true';window.location.replace(u);return}if(window.Telegram?.WebApp){window.Telegram.WebApp.expand();window.Telegram.WebApp.ready()}})();</script>
+<script>
+(function(){
+if(window.Telegram?.WebApp){
+window.Telegram.WebApp.expand();
+window.Telegram.WebApp.ready();
+}
+})();
+</script>
 </head>
 <body>
 <div id="app">
-<header><button class="back-btn" onclick="goBack()">←</button><h1>👥 Xodimlar</h1><span id="total-count">0 ta</span></header>
-<div class="search-container"><input type="text" id="search-input" placeholder="🔍 Xodimlarni qidirish..." oninput="filterEmployees()" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+<header>
+<button class="back-btn" onclick="goBack()">←</button>
+<h1>👥 Xodimlar</h1>
+<span id="total-count">0 ta</span>
+</header>
+<div class="search-container">
+<input type="text" id="search-input" placeholder="🔍 Xodimlarni qidirish..." oninput="filterEmployees()" autocomplete="off" autocorrect="off" spellcheck="false">
+</div>
 <div id="employees-grid"></div>
 </div>
 <script src="script.js" defer></script>

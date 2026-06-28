@@ -10,18 +10,30 @@
 <link rel="preconnect" href="/">
 <link rel="preconnect" href="/api">
 <link rel="stylesheet" href="style.css">
-<script>(function(){if(window.location.hostname.includes('ngrok')&&!window.location.search.includes('ngrok-skip-browser-warning')){let u=window.location.href;u+=(u.includes('?')?'&':'?')+'ngrok-skip-browser-warning=true';window.location.replace(u);return}if(window.Telegram?.WebApp){window.Telegram.WebApp.expand();window.Telegram.WebApp.ready()}})();</script>
+<script>
+(function(){
+if(window.Telegram?.WebApp){
+window.Telegram.WebApp.expand();
+window.Telegram.WebApp.ready();
+}
+})();
+</script>
 </head>
 <body>
 <div id="app">
-<header><h1>📦 <span class="highlight">Mahsulotlar</span> kategoriyasi</h1><span id="total-count">0 ta mahsulot</span></header>
+<header>
+<h1>📦 <span class="highlight">Mahsulotlar</span> kategoriyasi</h1>
+<span id="total-count">0 ta mahsulot</span>
+</header>
 <div class="tabs">
 <button class="tab active" data-tab="categories"><span>📦 Mahsulotlar</span></button>
 <button class="tab" data-tab="news"><span>📰 Yangiliklar</span></button>
 <button class="tab" data-tab="employees"><span>👥 Xodimlar</span></button>
 <button class="tab" data-tab="contacts"><span>📞 Kontaktlar</span></button>
 </div>
-<div class="search-container" id="search-container"><input type="text" id="search-input" placeholder="Kategoriyalarni qidirish..." oninput="renderCategories(this.value)" autocomplete="off" autocorrect="off" spellcheck="false"></div>
+<div class="search-container" id="search-container">
+<input type="text" id="search-input" placeholder="Kategoriyalarni qidirish..." oninput="renderCategories(this.value)" autocomplete="off" autocorrect="off" spellcheck="false">
+</div>
 <div id="categories-list"></div>
 <div id="news-section" style="display:none">
 <div class="news-tabs">

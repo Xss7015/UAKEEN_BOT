@@ -1,8 +1,0 @@
-version: "2"
-authtoken: https://yiddish-romp-impish.ngrok-free.dev
-tunnels:
-  bot:
-    proto: http
-    addr: 8080
-    inspect: false
-    skip_browser_warning: true

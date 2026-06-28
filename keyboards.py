@@ -1,22 +1,22 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from config import is_admin, WEBAPP_URL
 
-WEBAPP_URL_FIXED = f"{WEBAPP_URL}?startapp=uakeen&ngrok-skip-browser-warning=true"
-
-# ===== ТОЛЬКО INLINE КНОПКИ (НИКАКИХ КНОПОК ВНИЗУ) =====
+WEBAPP_URL_FIXED = f"{WEBAPP_URL}?startapp=uakeen"
 
 def get_main_menu(user_id: int = None):
-    """Asosiy menyu — ТОЛЬКО Admin panel (кнопка Mahsulotlar от BotFather)"""
     buttons = []
-    
-    # ✅ Только Admin panel (для админов)
+    if WEBAPP_URL.startswith("https://"):
+        buttons.append(InlineKeyboardButton(text="🛍️ Mahsulotlar", web_app=WebAppInfo(url=WEBAPP_URL_FIXED)))
+    else:
+        buttons.append(InlineKeyboardButton(text="🛍️ Mahsulotlar", callback_data="show_categories"))
     if user_id and is_admin(user_id):
         buttons.append(InlineKeyboardButton(text="👑 Admin panel", callback_data="admin_panel"))
-    
-    return InlineKeyboardMarkup(inline_keyboard=[buttons]) if buttons else None
+    keyboard = []
+    for i in range(0, len(buttons), 2):
+        keyboard.append(buttons[i:i+2])
+    return InlineKeyboardMarkup(inline_keyboard=keyboard)
 
 def get_admin_menu():
-    """Admin panel — Inline кнопки"""
     buttons = [
         InlineKeyboardButton(text="📥 Mahsulot qo'shish", callback_data="admin_add_product"),
         InlineKeyboardButton(text="📋 Barcha mahsulotlar", callback_data="admin_view_products"),
@@ -30,14 +30,19 @@ def get_admin_menu():
         InlineKeyboardButton(text="📋 Yangiliklar ro'yxati", callback_data="admin_news_list"),
         InlineKeyboardButton(text="🔙 Asosiy menyu", callback_data="back_to_main")
     ]
-    
     keyboard = []
     for i in range(0, len(buttons), 2):
         keyboard.append(buttons[i:i+2])
-    
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
 
-# ===== КНОПКИ ДЛЯ КАРТОЧЕК (INLINE) =====
+category_menu = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text="🔥 Dazmol bo'limi")],
+        [KeyboardButton(text="⚡ Chopper")],
+        [KeyboardButton(text="🔙 Asosiy menyuga")]
+    ],
+    resize_keyboard=True
+)
 
 def get_back_to_categories_btn():
     return InlineKeyboardMarkup(
