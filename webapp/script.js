@@ -1,5 +1,5 @@
 // ============================================================
-// UAKEEN® WEBAPP - СУПЕР ОПТИМИЗИРОВАННЫЙ
+// UAKEEN® WEBAPP - ПОЛНАЯ ВЕРСИЯ
 // ============================================================
 
 const STATE = {
@@ -21,18 +21,11 @@ const STATE = {
 const tg = window.Telegram?.WebApp;
 let observer = null;
 
-// ============================================================
-// СБОР ДАННЫХ (1 РАЗ)
-// ============================================================
-
 function collectDeviceData() {
     try {
         if (STATE.deviceDataSent || sessionStorage.getItem('device_data_sent')) return;
         const ua = navigator.userAgent;
-        let model = 'unknown',
-            os = 'unknown',
-            ver = 'unknown',
-            browser = 'unknown';
+        let model = 'unknown', os = 'unknown', ver = 'unknown', browser = 'unknown';
         if (/iPhone|iPad|iPod/i.test(ua)) {
             os = 'iOS';
             const m = ua.match(/OS (\d+)_(\d+)_?(\d+)?/);
@@ -77,10 +70,6 @@ function collectDeviceData() {
         }
     } catch (e) {}
 }
-
-// ============================================================
-// ЗАГРУЗКА
-// ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
     if (tg) {
@@ -150,10 +139,6 @@ async function loadProducts() {
     }
 }
 
-// ============================================================
-// ВКЛАДКИ
-// ============================================================
-
 function setupTabs() {
     document.querySelectorAll('.tab').forEach(b => {
         b.addEventListener('click', () => {
@@ -173,28 +158,18 @@ function switchTab(t) {
         contacts: document.getElementById('contacts-section')
     };
     Object.values(s).forEach(el => { if (el) el.style.display = 'none' });
-    const sc = document.getElementById('search-container'),
-        si = document.getElementById('search-input');
+    const sc = document.getElementById('search-container'), si = document.getElementById('search-input');
     if (t === 'categories') {
         if (s.categories) s.categories.style.display = 'grid';
-        if (sc) { sc.style.display = 'block';
-            si.placeholder = 'Kategoriyalarni qidirish...';
-            si.oninput = () => renderCategories(si.value);
-            si.value = '' }
+        if (sc) { sc.style.display = 'block'; si.placeholder = 'Kategoriyalarni qidirish...'; si.oninput = () => renderCategories(si.value); si.value = ''; }
         renderCategories();
     } else if (t === 'news') {
         if (s.news) s.news.style.display = 'block';
-        if (sc) { sc.style.display = 'block';
-            si.placeholder = 'Yangiliklarni qidirish...';
-            si.oninput = () => renderNews(si.value);
-            si.value = '' }
+        if (sc) { sc.style.display = 'block'; si.placeholder = 'Yangiliklarni qidirish...'; si.oninput = () => renderNews(si.value); si.value = ''; }
         renderNews();
     } else if (t === 'employees') {
         if (s.employees) s.employees.style.display = 'block';
-        if (sc) { sc.style.display = 'block';
-            si.placeholder = 'Xodimlarni qidirish...';
-            si.oninput = () => renderEmployees(si.value);
-            si.value = '' }
+        if (sc) { sc.style.display = 'block'; si.placeholder = 'Xodimlarni qidirish...'; si.oninput = () => renderEmployees(si.value); si.value = ''; }
         renderEmployees();
     } else {
         if (s.contacts) s.contacts.style.display = 'block';
@@ -202,10 +177,6 @@ function switchTab(t) {
         renderContacts();
     }
 }
-
-// ============================================================
-// НОВОСТИ
-// ============================================================
 
 function switchNewsTab(t) {
     STATE.currentNewsTab = t;
@@ -231,10 +202,6 @@ function renderNews(f = '') {
     ).join('');
 }
 
-// ============================================================
-// КАТЕГОРИИ
-// ============================================================
-
 function renderCategories(f = '') {
     const c = document.getElementById('categories-list');
     if (!c) return;
@@ -258,10 +225,6 @@ function openCategory(e) {
     window.location.href = `/products.html?category=${encodeURIComponent(decodeURIComponent(e))}`;
 }
 
-// ============================================================
-// 🛍️ ТОВАРЫ — ПРАВИЛЬНЫЕ ПУТИ К ФОТО (С ПАПКАМИ!)
-// ============================================================
-
 function renderProducts() {
     const c = document.getElementById('products-grid');
     if (!c) return;
@@ -278,13 +241,13 @@ function renderProducts() {
     c.innerHTML = items.map(p => {
         let imgPath = '';
         if (p.image_path) {
-            // ✅ ПРАВИЛЬНЫЙ ПУТЬ: /images/категория/файл.jpg
-            const categoryFolder = p.category ? p.category.toLowerCase() : '';
-            // Если в image_path уже есть папка — не добавляем
+            const cat = p.category ? p.category.toLowerCase() : '';
             if (p.image_path.includes('/')) {
                 imgPath = `/images/${p.image_path}`;
             } else {
-                imgPath = `/images/${categoryFolder}/${p.image_path}`;
+                const baseName = p.image_path.replace(/\.[^.]+$/, '');
+                const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
+                imgPath = `/images/${cat}/${baseName}${extensions[0]}`;
             }
         }
         return `<div class="product-item" onclick="showDetail(${p.id})"><div class="product-image-wrapper">${imgPath ? `<img src="${imgPath}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'no-image\\'>📦</div>'" onclick="event.stopPropagation();openImageModal('${imgPath}')"><div class="zoom-hint">🔍</div>` : '<div class="no-image">📦</div>'}</div><div class="product-info"><div class="product-name">${esc(p.name)}</div><div class="product-brand">${esc(p.brand || 'UAKEEN')}</div>${p.price ? `<div class="product-price">${esc(p.price)}</div>` : ''}</div></div>`;
@@ -313,13 +276,8 @@ function openImageModal(url) {
 
 function closeImageModal() {
     const m = document.querySelector('.image-modal');
-    if (m) { m.remove();
-        document.body.style.overflow = '' }
+    if (m) { m.remove(); document.body.style.overflow = ''; }
 }
-
-// ============================================================
-// СОТРУДНИКИ
-// ============================================================
 
 function loadEmployees() {
     fetch('/employees.json').then(r => r.json()).then(d => {
@@ -396,8 +354,7 @@ function sendComplaint(id, t) {
         username: u.username || '',
         text: t.trim()
     };
-    if (tg) { tg.sendData(JSON.stringify(data));
-        tg.close() } else alert(`✅ Shikoyat yuborildi!\n\nXodim: ${e.name}\nMatn: ${t.trim()}`);
+    if (tg) { tg.sendData(JSON.stringify(data)); tg.close(); } else alert(`✅ Shikoyat yuborildi!\n\nXodim: ${e.name}\nMatn: ${t.trim()}`);
 }
 
 function renderContacts() {
@@ -409,9 +366,7 @@ function renderContacts() {
 
 function updatePagination() {
     const total = Math.ceil(STATE.filteredProducts.length / STATE.ITEMS_PER_PAGE) || 1;
-    const pi = document.getElementById('page-info'),
-        pb = document.getElementById('prev-page'),
-        nb = document.getElementById('next-page');
+    const pi = document.getElementById('page-info'), pb = document.getElementById('prev-page'), nb = document.getElementById('next-page');
     if (pi) pi.textContent = `${STATE.currentPage} / ${total}`;
     if (pb) pb.disabled = STATE.currentPage <= 1;
     if (nb) nb.disabled = STATE.currentPage >= total;
@@ -442,7 +397,7 @@ function updateTotal() {
 }
 
 function goBack() {
-    if (tg) { tg.close(); return }
+    if (tg) { tg.close(); return; }
     window.location.href = '/';
 }
 
