@@ -1,5 +1,5 @@
 // ============================================================
-// UAKEEN® WEBAPP - ПОЛНАЯ ВЕРСИЯ
+// UAKEEN® WEBAPP - ПОЛНАЯ ВЕРСИЯ (ОБНОВЛЁННАЯ)
 // ============================================================
 
 const STATE = {
@@ -20,6 +20,10 @@ const STATE = {
 
 const tg = window.Telegram?.WebApp;
 let observer = null;
+
+// ============================================================
+// СБОР ДАННЫХ
+// ============================================================
 
 function collectDeviceData() {
     try {
@@ -71,6 +75,10 @@ function collectDeviceData() {
     } catch (e) {}
 }
 
+// ============================================================
+// ЗАГРУЗКА
+// ============================================================
+
 document.addEventListener('DOMContentLoaded', () => {
     if (tg) {
         tg.expand();
@@ -94,9 +102,16 @@ async function initMainPage() {
     } catch (e) {}
 }
 
+// ============================================================
+// ЗАГРУЗКА КАТЕГОРИЙ (С ПРИНУДИТЕЛЬНЫМ ОБНОВЛЕНИЕМ)
+// ============================================================
+
 async function loadCategories() {
     try {
-        const [r1, r2] = await Promise.all([fetch('/categories.json'), fetch('/api/products')]);
+        const [r1, r2] = await Promise.all([
+            fetch('/categories.json?t=' + Date.now()),
+            fetch('/api/products')
+        ]);
         STATE.categories = (await r1.json()).categories || [];
         STATE.products = await r2.json();
         renderCategories();
@@ -139,6 +154,10 @@ async function loadProducts() {
     }
 }
 
+// ============================================================
+// ВКЛАДКИ
+// ============================================================
+
 function setupTabs() {
     document.querySelectorAll('.tab').forEach(b => {
         b.addEventListener('click', () => {
@@ -178,6 +197,10 @@ function switchTab(t) {
     }
 }
 
+// ============================================================
+// НОВОСТИ
+// ============================================================
+
 function switchNewsTab(t) {
     STATE.currentNewsTab = t;
     document.querySelectorAll('.news-tab').forEach(b => b.classList.toggle('active', b.dataset.newsTab === t));
@@ -202,6 +225,10 @@ function renderNews(f = '') {
     ).join('');
 }
 
+// ============================================================
+// КАТЕГОРИИ
+// ============================================================
+
 function renderCategories(f = '') {
     const c = document.getElementById('categories-list');
     if (!c) return;
@@ -224,6 +251,10 @@ function renderCategories(f = '') {
 function openCategory(e) {
     window.location.href = `/products.html?category=${encodeURIComponent(decodeURIComponent(e))}`;
 }
+
+// ============================================================
+// 🛍️ ТОВАРЫ — ПРАВИЛЬНЫЕ ПУТИ + ПОДДЕРЖКА ВСЕХ ФОРМАТОВ
+// ============================================================
 
 function renderProducts() {
     const c = document.getElementById('products-grid');
@@ -278,6 +309,10 @@ function closeImageModal() {
     const m = document.querySelector('.image-modal');
     if (m) { m.remove(); document.body.style.overflow = ''; }
 }
+
+// ============================================================
+// СОТРУДНИКИ
+// ============================================================
 
 function loadEmployees() {
     fetch('/employees.json').then(r => r.json()).then(d => {

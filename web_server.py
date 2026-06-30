@@ -17,11 +17,11 @@ class WebServer:
         self.app.router.add_get('/products.html', self.serve_products)
         self.app.router.add_get('/employees.html', self.serve_employees_html)
         
-        # CSS + JS (с кэшированием)
+        # CSS + JS
         self.app.router.add_get('/style.css', self.serve_css)
         self.app.router.add_get('/script.js', self.serve_js)
         
-        # JSON
+        # JSON (С ПРИНУДИТЕЛЬНЫМ ОБНОВЛЕНИЕМ)
         self.app.router.add_get('/categories.json', self.serve_categories)
         self.app.router.add_get('/employees.json', self.serve_employees)
         self.app.router.add_get('/news.json', self.serve_news)
@@ -30,17 +30,17 @@ class WebServer:
         self.app.router.add_get('/api/products', self.get_products)
         self.app.router.add_get('/api/products/{category}', self.get_products_by_category)
         
-        # ✅ СТАТИКА С КЭШИРОВАНИЕМ
+        # Статика
         self.app.router.add_static('/images', str(IMAGES_DIR), append_version=True)
         self.app.router.add_static('/webapp/images', str(WEBAPP_DIR / 'images'), append_version=True)
 
-    # ===== СТРАНИЦЫ С КЭШИРОВАНИЕМ =====
     async def serve_index(self, request):
         file_path = WEBAPP_DIR / 'index.html'
         if file_path.exists():
             return web.FileResponse(file_path, headers={
-                'Cache-Control': 'public, max-age=3600',
-                'Content-Type': 'text/html'
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             })
         return web.Response(text="<h1>404</h1>", content_type='text/html')
 
@@ -48,8 +48,9 @@ class WebServer:
         file_path = WEBAPP_DIR / 'products.html'
         if file_path.exists():
             return web.FileResponse(file_path, headers={
-                'Cache-Control': 'public, max-age=3600',
-                'Content-Type': 'text/html'
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             })
         return web.Response(text="<h1>404</h1>", content_type='text/html')
 
@@ -57,8 +58,9 @@ class WebServer:
         file_path = WEBAPP_DIR / 'employees.html'
         if file_path.exists():
             return web.FileResponse(file_path, headers={
-                'Cache-Control': 'public, max-age=3600',
-                'Content-Type': 'text/html'
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             })
         return web.Response(text="<h1>404</h1>", content_type='text/html')
 
@@ -67,7 +69,7 @@ class WebServer:
         if file_path.exists():
             return web.FileResponse(file_path, headers={
                 'Content-Type': 'text/css',
-                'Cache-Control': 'public, max-age=86400'  # 24 часа
+                'Cache-Control': 'public, max-age=86400'
             })
         return web.Response(text="", content_type='text/css')
 
@@ -76,17 +78,18 @@ class WebServer:
         if file_path.exists():
             return web.FileResponse(file_path, headers={
                 'Content-Type': 'application/javascript',
-                'Cache-Control': 'public, max-age=86400'  # 24 часа
+                'Cache-Control': 'public, max-age=86400'
             })
         return web.Response(text="", content_type='application/javascript')
 
-    # ===== JSON С КЭШИРОВАНИЕМ =====
     async def serve_categories(self, request):
         file_path = WEBAPP_DIR / 'categories.json'
         if file_path.exists():
             return web.FileResponse(file_path, headers={
                 'Content-Type': 'application/json',
-                'Cache-Control': 'public, max-age=3600'
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             })
         return web.json_response({"categories": []})
 
@@ -95,7 +98,9 @@ class WebServer:
         if file_path.exists():
             return web.FileResponse(file_path, headers={
                 'Content-Type': 'application/json',
-                'Cache-Control': 'public, max-age=3600'
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             })
         return web.json_response({"employees": []})
 
@@ -104,11 +109,12 @@ class WebServer:
         if file_path.exists():
             return web.FileResponse(file_path, headers={
                 'Content-Type': 'application/json',
-                'Cache-Control': 'public, max-age=3600'
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             })
         return web.json_response({"news": []})
 
-    # ===== API С КЭШИРОВАНИЕМ =====
     async def get_products(self, request):
         try:
             with sqlite3.connect(DB_PATH) as conn:
@@ -118,7 +124,7 @@ class WebServer:
                 rows = cursor.fetchall()
                 products = [dict(row) for row in rows]
                 return web.json_response(products, headers={
-                    'Cache-Control': 'public, max-age=300'  # 5 минут
+                    'Cache-Control': 'public, max-age=300'
                 })
         except Exception as e:
             return web.json_response({"error": str(e)}, status=500)
