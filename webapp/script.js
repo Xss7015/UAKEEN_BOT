@@ -1,5 +1,5 @@
 // ============================================================
-// UAKEEN® WEBAPP - ПОЛНАЯ ВЕРСИЯ (ОБНОВЛЁННАЯ)
+// UAKEEN® WEBAPP - ПОЛНАЯ ВЕРСИЯ
 // ============================================================
 
 const STATE = {
@@ -101,10 +101,6 @@ async function initMainPage() {
         updateTotal();
     } catch (e) {}
 }
-
-// ============================================================
-// ЗАГРУЗКА КАТЕГОРИЙ (С ПРИНУДИТЕЛЬНЫМ ОБНОВЛЕНИЕМ)
-// ============================================================
 
 async function loadCategories() {
     try {
@@ -253,7 +249,7 @@ function openCategory(e) {
 }
 
 // ============================================================
-// 🛍️ ТОВАРЫ — ПРАВИЛЬНЫЕ ПУТИ + ПОДДЕРЖКА ВСЕХ ФОРМАТОВ
+// 🛍️ ТОВАРЫ — ПРАВИЛЬНЫЕ ПУТИ + КОРОБКА ПРИ ОШИБКЕ
 // ============================================================
 
 function renderProducts() {
@@ -271,17 +267,35 @@ function renderProducts() {
     }
     c.innerHTML = items.map(p => {
         let imgPath = '';
+        let imgExt = '';
         if (p.image_path) {
             const cat = p.category ? p.category.toLowerCase() : '';
+            const baseName = p.image_path.replace(/\.[^.]+$/, '');
+            const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
             if (p.image_path.includes('/')) {
                 imgPath = `/images/${p.image_path}`;
+                imgExt = p.image_path.split('.').pop();
             } else {
-                const baseName = p.image_path.replace(/\.[^.]+$/, '');
-                const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
                 imgPath = `/images/${cat}/${baseName}${extensions[0]}`;
+                imgExt = extensions[0].replace('.', '');
             }
         }
-        return `<div class="product-item" onclick="showDetail(${p.id})"><div class="product-image-wrapper">${imgPath ? `<img src="${imgPath}" alt="${esc(p.name)}" loading="lazy" onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'no-image\\'>📦</div>'" onclick="event.stopPropagation();openImageModal('${imgPath}')"><div class="zoom-hint">🔍</div>` : '<div class="no-image">📦</div>'}</div><div class="product-info"><div class="product-name">${esc(p.name)}</div><div class="product-brand">${esc(p.brand || 'UAKEEN')}</div>${p.price ? `<div class="product-price">${esc(p.price)}</div>` : ''}</div></div>`;
+        return `<div class="product-item" onclick="showDetail(${p.id})">
+            <div class="product-image-wrapper">
+                ${imgPath ? 
+                    `<img src="${imgPath}" alt="${esc(p.name)}" loading="lazy" 
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\\'no-image\\'>📦</div>'" 
+                        onclick="event.stopPropagation();openImageModal('${imgPath}')">
+                    <div class="zoom-hint">🔍</div>` : 
+                    '<div class="no-image">📦</div>'
+                }
+            </div>
+            <div class="product-info">
+                <div class="product-name">${esc(p.name)}</div>
+                <div class="product-brand">${esc(p.brand || 'UAKEEN')}</div>
+                ${p.price ? `<div class="product-price">${esc(p.price)}</div>` : ''}
+            </div>
+        </div>`;
     }).join('');
     updateTotal();
 }
